@@ -9,14 +9,21 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    database.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    new_db_w.cpp \
+    typemodellist.cpp
 
 HEADERS += \
-    mainwindow.h
+    database.h \
+    mainwindow.h \
+    new_db_w.h \
+    typemodellist.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    new_db_w.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

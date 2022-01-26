@@ -34,10 +34,9 @@ public:
     QAction *actionAdd_row;
     QAction *actionAdd_table;
     QWidget *centralwidget;
-    QTabWidget *tabWidget;
+    QTabWidget *Tables;
     QWidget *tab;
     QTableView *MW_tableOne_View;
-    QWidget *tab_2;
     QPushButton *MW_Seach;
     QLineEdit *MW_Seach_line;
     QMenuBar *menubar;
@@ -61,18 +60,15 @@ public:
         actionAdd_table->setObjectName(QString::fromUtf8("actionAdd_table"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        tabWidget = new QTabWidget(centralwidget);
-        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        tabWidget->setGeometry(QRect(30, 20, 731, 531));
+        Tables = new QTabWidget(centralwidget);
+        Tables->setObjectName(QString::fromUtf8("Tables"));
+        Tables->setGeometry(QRect(30, 20, 731, 531));
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         MW_tableOne_View = new QTableView(tab);
         MW_tableOne_View->setObjectName(QString::fromUtf8("MW_tableOne_View"));
         MW_tableOne_View->setGeometry(QRect(-5, -9, 741, 511));
-        tabWidget->addTab(tab, QString());
-        tab_2 = new QWidget();
-        tab_2->setObjectName(QString::fromUtf8("tab_2"));
-        tabWidget->addTab(tab_2, QString());
+        Tables->addTab(tab, QString());
         MW_Seach = new QPushButton(centralwidget);
         MW_Seach->setObjectName(QString::fromUtf8("MW_Seach"));
         MW_Seach->setGeometry(QRect(990, 50, 83, 29));
@@ -100,7 +96,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        Tables->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -114,8 +110,7 @@ public:
         actionSave_as->setText(QCoreApplication::translate("MainWindow", "Save as...", nullptr));
         actionAdd_row->setText(QCoreApplication::translate("MainWindow", "Add row", nullptr));
         actionAdd_table->setText(QCoreApplication::translate("MainWindow", "Add table", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Tab 2", nullptr));
+        Tables->setTabText(Tables->indexOf(tab), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
         MW_Seach->setText(QCoreApplication::translate("MainWindow", "\320\237\320\276\320\270\321\201\320\272", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi

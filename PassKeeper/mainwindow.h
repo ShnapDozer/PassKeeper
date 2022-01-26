@@ -1,39 +1,19 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <vector>
+#include <memory>
+
 #include <QMainWindow>
 
-#include <QSqlDatabase>
-#include <QSqlQueryModel>
+#include "database.h"
+#include "new_db_w.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class DataBase
-{
-public:
 
-   DataBase(QString File);
-
-   QSqlQueryModel* GetModel(){return model;}
-
-   DataBase* GetDataBase(){return db;}
-
-   bool SetPassword(QString Pass);
-
-   bool SelectTable(QString Name);
-
-   bool AddRow(QString AtrStr);
-
-private:
-
-   DataBase *db;
-   QSqlQueryModel *model;
-
-   QString File;
-
-};
 
 class MainWindow : public QMainWindow
 {
@@ -43,7 +23,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+
+    void on_MW_Seach_clicked();
+
+    //Window slots:
+    void slot_NewTable_Ok(QString Name, QString TableQuery);
+
 private:
     Ui::MainWindow *ui;
+
+    New_DB_W *newTable_W;
+
+    std::shared_ptr <DataBase> DB;
 };
 #endif // MAINWINDOW_H
