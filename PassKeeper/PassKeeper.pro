@@ -10,20 +10,29 @@ CONFIG += c++11
 
 SOURCES += \
     database.cpp \
+    explorer_w.cpp \
     main.cpp \
     mainwindow.cpp \
     new_db_w.cpp \
+    passwrite_w.cpp \
+    start_w.cpp \
     typemodellist.cpp
 
 HEADERS += \
     database.h \
+    explorer_w.h \
     mainwindow.h \
     new_db_w.h \
+    passwrite_w.h \
+    start_w.h \
     typemodellist.h
 
 FORMS += \
+    explorer_w.ui \
     mainwindow.ui \
-    new_db_w.ui
+    new_db_w.ui \
+    passwrite_w.ui \
+    start_w.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

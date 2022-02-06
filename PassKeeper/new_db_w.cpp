@@ -39,16 +39,21 @@ void New_DB_W::on_DefaultButton_clicked(){ setDefault_typeList(ColumnTypes); }
 
 void New_DB_W::on_CreateButton_clicked()
 {
-    query_DB +="CREATE TABLE " + Tab_name +"(";
-
-    auto Vec = ColumnTypes.getTypeList();
-    for(int i = 0; i < Vec.size(); ++i)
+    if(Tab_name.isNull()){WarninBox.warning(0,"Attention!","Enter the table name! :}");}
+    else if(ColumnTypes.getTypeList().size() == 0){WarninBox.warning(0,"Attention!","Collumn types is empty! :(");}
+    else
     {
-        query_DB += Vec[i].name + " " + Vec[i].type;
-        if(i != (Vec.size()-1)){query_DB += ", ";}
-        else query_DB += ");";
-    }
+        query_DB +="CREATE TABLE " + Tab_name +"(";
 
-     emit signal_NewDB_Ok(Tab_name, query_DB);
+        auto Vec = ColumnTypes.getTypeList();
+        for(int i = 0; i < Vec.size(); ++i)
+        {
+            query_DB += Vec[i].name + " " + Vec[i].type;
+            if(i != (Vec.size()-1)){query_DB += ", ";}
+            else query_DB += ");";
+        }
+
+         emit signal_NewTable_Ok(DB_name, Tab_name, query_DB, DB_pass);
+    }
 }
 

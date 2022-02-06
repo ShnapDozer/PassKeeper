@@ -4,6 +4,7 @@
 #include "typemodellist.h"
 
 #include <QDialog>
+#include <QMessageBox>
 
 namespace Ui {
 class New_DB_W;
@@ -16,6 +17,9 @@ class New_DB_W : public QDialog
 public:
     explicit New_DB_W(QWidget *parent = nullptr);
     ~New_DB_W();
+
+    void setDB_Password(QString Pass){ DB_pass = Pass; }
+    void setDB_Name(QString Name){ DB_name = Name; }
 
 private slots:
     void on_NameColumn_textChanged(const QString &arg1);
@@ -35,7 +39,7 @@ private slots:
     void on_CreateButton_clicked();
 
 signals:
-    void signal_NewDB_Ok(QString Name, QString TableQuery);
+    void signal_NewTable_Ok(QString NameDB, QString NameTab, QString TableQuery, QString PassDB);
 
 private:
     Ui::New_DB_W *ui;
@@ -46,7 +50,8 @@ private:
 
     TypeList_Model ColumnTypes;
 
-    QString query_DB, Tab_name, Col_name, Col_type;
+    QMessageBox WarninBox;
+    QString query_DB, Tab_name, Col_name, Col_type, DB_name, DB_pass;
 };
 
 #endif // NEW_DB_W_H

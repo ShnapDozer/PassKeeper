@@ -1,15 +1,22 @@
 #include "database.h"
 
-DataBase::DataBase(QString File, Ui::MainWindow *UI) : ui(UI), file(File)
+DataBase::DataBase(QString File, Ui::MainWindow *UI, QString Password) : ui(UI), file(File)
 {
     ui->Tables->clear();
-    OpenExistDB();
+    OpenExistDB(Password);
 }
 
-DataBase::DataBase(QString NameDB, Ui::MainWindow *UI, QString NameTable, QString query) : ui(UI), file(NameDB)
+DataBase::DataBase(QString NameDB, Ui::MainWindow *UI, QString NameTable, QString query, QString Password) : ui(UI), file(NameDB)
 {
      ui->Tables->clear();
-     CreateNewDB(NameTable, query);
+     CreateNewDB(NameTable, query, Password);
+}
+
+void DataBase::UpdatePassword(QString Pass){ DB.setConnectOptions("QSQLITE_UPDATE_KEY=" + Pass); }
+
+bool DataBase::EnterPassword(QString Pass)
+{
+    return true;
 }
 
 bool DataBase::SetQuery(QString query)
@@ -26,13 +33,24 @@ void DataBase::AddTable_FromQuery(QString Name, QString query)
     Table_Names.push_back(Name);
 }
 
-void DataBase::CreateNewDB(QString NameTable, QString query)
+void DataBase::CreateNewDB(QString NameTable, QString query, QString Pass)
 {
-    DB = QSqlDatabase::addDatabase("QSQLITE", file);
+    DB = QSqlDatabase::addDatabase("SQLITECIPHER", file);
     DB.setDatabaseName("./" + file + ".db");
 
-    if(DB.open()){qDebug("open :)");}
-    else qDebug("No open :(");
+    if(!Pass.isNull())
+    {
+        DB.setPassword(Pass);
+        DB.setConnectOptions("QSQLITE_CREATE_KEY");
+    }
+
+    if(DB.open())
+        qDebug("open :)");
+    else
+    {
+        qDebug() << "Can not open connection: " << DB.lastError().driverText();
+        return;
+    }
 
     Table_Names.push_back(NameTable);
 
@@ -48,26 +66,31 @@ void DataBase::CreateNewDB(QString NameTable, QString query)
     ui->MW_tableOne_View->setModel(Q_model);
 }
 
-void DataBase::OpenExistDB()
+void DataBase::OpenExistDB(QString Pass)
 {
     QString File_Type;
-
     File_Type = file.mid(file.indexOf("."));
 
     if(File_Type != ".db")
-    {
         WarninBox.warning(0,"Warning","The file you are trying to open has a non .db extension! :(");
-    }
 
     else
     {
-        QString File_Name;
+        QString File_Name = file.mid(file.indexOf("/"), file.indexOf("."));
 
-        DB = QSqlDatabase::addDatabase("QSQLITE", "generalBD");
+        DB = QSqlDatabase::addDatabase("SQLITECIPHER", File_Name);
         DB.setDatabaseName(file);
 
-        if(DB.open()){qDebug("open :)");}
-        else qDebug("No open :(");
+        if(!Pass.isNull())
+            DB.setPassword(Pass);
+
+        if(DB.open())
+            qDebug("open :)");
+        else
+        {
+            qDebug() << "Can not open connection: " << DB.lastError().driverText();
+            return;
+        }
 
         for(auto i : DB.tables()){AddExistTable(i);}
 
@@ -98,6 +121,11 @@ void DataBase::ChangeTable(size_t T_num)
 void DataBase::Search(QString name, QString column)
 {
     Q_model->setQuery("SELECT * FROM "+ Table_Names[Select_Table] + " WHERE " + column + " LIKE '" + name + "%';", DB);
+}
+
+DataBase::~DataBase()
+{
+    DB.close();
 }
 
 void DataBase::on_tabWidget_currentChanged(int index){ ChangeTable(index); }

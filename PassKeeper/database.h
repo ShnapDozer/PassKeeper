@@ -6,6 +6,7 @@
 
 #include <QSqlDatabase>
 #include <QSqlQueryModel>
+#include <QSqlError>
 #include <QTableView>
 #include <QMessageBox>
 
@@ -16,15 +17,17 @@ class DataBase
 {
 public:
 
-   DataBase(QString File, Ui::MainWindow *UI);
+   DataBase(QString File, Ui::MainWindow *UI, QString Password = QString());
 
-   DataBase(QString NameDB, Ui::MainWindow *UI, QString NameTable, QString query);
+   DataBase(QString NameDB, Ui::MainWindow *UI, QString NameTable, QString query, QString Password = QString());
 
    QSqlQueryModel* GetModel(){return Q_model;}
 
    QSqlDatabase* GetDataBase(){return &DB;}
 
-   bool SetPassword(QString Pass);
+   void UpdatePassword(QString Pass);
+
+   bool EnterPassword(QString Pass);
 
    bool SetQuery(QString query);
 
@@ -40,13 +43,15 @@ public:
 
    void Search(QString name, QString column = "Null000");
 
+   ~DataBase();
+
 private slots:
    void on_tabWidget_currentChanged(int index);
 
 private:
 
-   void CreateNewDB(QString NameTable, QString query);
-   void OpenExistDB();
+   void CreateNewDB(QString NameTable, QString query, QString Pass);
+   void OpenExistDB(QString Pass);
 
    void AddExistTable(QString Name);
 

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'new_db_w.ui'
 **
-** Created by: Qt User Interface Compiler version 6.2.2
+** Created by: Qt User Interface Compiler version 6.2.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -28,11 +28,11 @@ class Ui_New_DB_W
 {
 public:
     QListView *ColumnsNT;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
     QPushButton *AddButton;
     QPushButton *DeleteButton;
-    QWidget *layoutWidget;
+    QWidget *layoutWidget1;
     QFormLayout *formLayout;
     QLabel *label_3;
     QLineEdit *NameColumn;
@@ -41,7 +41,7 @@ public:
     QLineEdit *TableName;
     QLabel *label;
     QFrame *line;
-    QWidget *widget1;
+    QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *CreateButton;
     QPushButton *DefaultButton;
@@ -54,44 +54,44 @@ public:
         ColumnsNT = new QListView(New_DB_W);
         ColumnsNT->setObjectName(QString::fromUtf8("ColumnsNT"));
         ColumnsNT->setGeometry(QRect(270, 6, 201, 171));
-        widget = new QWidget(New_DB_W);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(10, 160, 241, 33));
-        horizontalLayout = new QHBoxLayout(widget);
+        layoutWidget = new QWidget(New_DB_W);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 160, 241, 33));
+        horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        AddButton = new QPushButton(widget);
+        AddButton = new QPushButton(layoutWidget);
         AddButton->setObjectName(QString::fromUtf8("AddButton"));
 
         horizontalLayout->addWidget(AddButton);
 
-        DeleteButton = new QPushButton(widget);
+        DeleteButton = new QPushButton(layoutWidget);
         DeleteButton->setObjectName(QString::fromUtf8("DeleteButton"));
 
         horizontalLayout->addWidget(DeleteButton);
 
-        layoutWidget = new QWidget(New_DB_W);
-        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(10, 80, 241, 71));
-        formLayout = new QFormLayout(layoutWidget);
+        layoutWidget1 = new QWidget(New_DB_W);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(10, 80, 241, 71));
+        formLayout = new QFormLayout(layoutWidget1);
         formLayout->setObjectName(QString::fromUtf8("formLayout"));
         formLayout->setContentsMargins(0, 0, 0, 0);
-        label_3 = new QLabel(layoutWidget);
+        label_3 = new QLabel(layoutWidget1);
         label_3->setObjectName(QString::fromUtf8("label_3"));
 
         formLayout->setWidget(0, QFormLayout::LabelRole, label_3);
 
-        NameColumn = new QLineEdit(layoutWidget);
+        NameColumn = new QLineEdit(layoutWidget1);
         NameColumn->setObjectName(QString::fromUtf8("NameColumn"));
 
         formLayout->setWidget(0, QFormLayout::FieldRole, NameColumn);
 
-        label_4 = new QLabel(layoutWidget);
+        label_4 = new QLabel(layoutWidget1);
         label_4->setObjectName(QString::fromUtf8("label_4"));
 
         formLayout->setWidget(1, QFormLayout::LabelRole, label_4);
 
-        TypeColumn = new QComboBox(layoutWidget);
+        TypeColumn = new QComboBox(layoutWidget1);
         TypeColumn->addItem(QString());
         TypeColumn->addItem(QString());
         TypeColumn->addItem(QString());
@@ -112,18 +112,18 @@ public:
         line->setGeometry(QRect(250, 0, 20, 231));
         line->setFrameShape(QFrame::VLine);
         line->setFrameShadow(QFrame::Sunken);
-        widget1 = new QWidget(New_DB_W);
-        widget1->setObjectName(QString::fromUtf8("widget1"));
-        widget1->setGeometry(QRect(270, 190, 201, 31));
-        horizontalLayout_2 = new QHBoxLayout(widget1);
+        layoutWidget2 = new QWidget(New_DB_W);
+        layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(270, 190, 201, 31));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget2);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        CreateButton = new QPushButton(widget1);
+        CreateButton = new QPushButton(layoutWidget2);
         CreateButton->setObjectName(QString::fromUtf8("CreateButton"));
 
         horizontalLayout_2->addWidget(CreateButton);
 
-        DefaultButton = new QPushButton(widget1);
+        DefaultButton = new QPushButton(layoutWidget2);
         DefaultButton->setObjectName(QString::fromUtf8("DefaultButton"));
 
         horizontalLayout_2->addWidget(DefaultButton);
@@ -136,7 +136,7 @@ public:
 
     void retranslateUi(QDialog *New_DB_W)
     {
-        New_DB_W->setWindowTitle(QCoreApplication::translate("New_DB_W", "Dialog", nullptr));
+        New_DB_W->setWindowTitle(QCoreApplication::translate("New_DB_W", "New table", nullptr));
         AddButton->setText(QCoreApplication::translate("New_DB_W", "Add", nullptr));
         DeleteButton->setText(QCoreApplication::translate("New_DB_W", "Delete", nullptr));
         label_3->setText(QCoreApplication::translate("New_DB_W", "Column name:", nullptr));
