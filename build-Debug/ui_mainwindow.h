@@ -12,7 +12,10 @@
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QFrame>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
@@ -21,6 +24,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableView>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -34,11 +38,19 @@ public:
     QAction *actionAdd_row;
     QAction *actionAdd_table;
     QWidget *centralwidget;
-    QTabWidget *Tables;
-    QWidget *tab;
-    QTableView *MW_tableOne_View;
-    QPushButton *MW_Seach;
-    QLineEdit *MW_Seach_line;
+    QTabWidget *TabBar;
+    QWidget *layoutWidget;
+    QVBoxLayout *verticalLayout;
+    QLineEdit *Seach_line;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *AddPass_Button;
+    QPushButton *AddTab_Button;
+    QHBoxLayout *horizontalLayout_2;
+    QPushButton *DelR_Button;
+    QPushButton *DelT_Button;
+    QLabel *Action_Text;
+    QFrame *line;
+    QTableView *MainTable;
     QMenuBar *menubar;
     QMenu *menuFile;
     QStatusBar *statusbar;
@@ -47,7 +59,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1081, 600);
+        MainWindow->resize(1081, 606);
         actionLoad = new QAction(MainWindow);
         actionLoad->setObjectName(QString::fromUtf8("actionLoad"));
         actionSave = new QAction(MainWindow);
@@ -60,21 +72,61 @@ public:
         actionAdd_table->setObjectName(QString::fromUtf8("actionAdd_table"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        Tables = new QTabWidget(centralwidget);
-        Tables->setObjectName(QString::fromUtf8("Tables"));
-        Tables->setGeometry(QRect(30, 20, 731, 531));
-        tab = new QWidget();
-        tab->setObjectName(QString::fromUtf8("tab"));
-        MW_tableOne_View = new QTableView(tab);
-        MW_tableOne_View->setObjectName(QString::fromUtf8("MW_tableOne_View"));
-        MW_tableOne_View->setGeometry(QRect(-5, -9, 741, 511));
-        Tables->addTab(tab, QString());
-        MW_Seach = new QPushButton(centralwidget);
-        MW_Seach->setObjectName(QString::fromUtf8("MW_Seach"));
-        MW_Seach->setGeometry(QRect(990, 50, 83, 29));
-        MW_Seach_line = new QLineEdit(centralwidget);
-        MW_Seach_line->setObjectName(QString::fromUtf8("MW_Seach_line"));
-        MW_Seach_line->setGeometry(QRect(770, 50, 221, 28));
+        TabBar = new QTabWidget(centralwidget);
+        TabBar->setObjectName(QString::fromUtf8("TabBar"));
+        TabBar->setGeometry(QRect(20, 20, 741, 21));
+        layoutWidget = new QWidget(centralwidget);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(768, 54, 311, 111));
+        verticalLayout = new QVBoxLayout(layoutWidget);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        Seach_line = new QLineEdit(layoutWidget);
+        Seach_line->setObjectName(QString::fromUtf8("Seach_line"));
+
+        verticalLayout->addWidget(Seach_line);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        AddPass_Button = new QPushButton(layoutWidget);
+        AddPass_Button->setObjectName(QString::fromUtf8("AddPass_Button"));
+
+        horizontalLayout->addWidget(AddPass_Button);
+
+        AddTab_Button = new QPushButton(layoutWidget);
+        AddTab_Button->setObjectName(QString::fromUtf8("AddTab_Button"));
+
+        horizontalLayout->addWidget(AddTab_Button);
+
+
+        verticalLayout->addLayout(horizontalLayout);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        DelR_Button = new QPushButton(layoutWidget);
+        DelR_Button->setObjectName(QString::fromUtf8("DelR_Button"));
+
+        horizontalLayout_2->addWidget(DelR_Button);
+
+        DelT_Button = new QPushButton(layoutWidget);
+        DelT_Button->setObjectName(QString::fromUtf8("DelT_Button"));
+
+        horizontalLayout_2->addWidget(DelT_Button);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
+
+        Action_Text = new QLabel(centralwidget);
+        Action_Text->setObjectName(QString::fromUtf8("Action_Text"));
+        Action_Text->setGeometry(QRect(770, 530, 301, 20));
+        line = new QFrame(centralwidget);
+        line->setObjectName(QString::fromUtf8("line"));
+        line->setGeometry(QRect(760, 520, 321, 16));
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Sunken);
+        MainTable = new QTableView(centralwidget);
+        MainTable->setObjectName(QString::fromUtf8("MainTable"));
+        MainTable->setGeometry(QRect(20, 43, 741, 420));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -96,7 +148,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        Tables->setCurrentIndex(0);
+        TabBar->setCurrentIndex(-1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -110,8 +162,11 @@ public:
         actionSave_as->setText(QCoreApplication::translate("MainWindow", "Save as...", nullptr));
         actionAdd_row->setText(QCoreApplication::translate("MainWindow", "Add row", nullptr));
         actionAdd_table->setText(QCoreApplication::translate("MainWindow", "Add table", nullptr));
-        Tables->setTabText(Tables->indexOf(tab), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
-        MW_Seach->setText(QCoreApplication::translate("MainWindow", "\320\237\320\276\320\270\321\201\320\272", nullptr));
+        AddPass_Button->setText(QCoreApplication::translate("MainWindow", "Add Pass", nullptr));
+        AddTab_Button->setText(QCoreApplication::translate("MainWindow", "Add Tab", nullptr));
+        DelR_Button->setText(QCoreApplication::translate("MainWindow", "Del Pass", nullptr));
+        DelT_Button->setText(QCoreApplication::translate("MainWindow", "Del Tab", nullptr));
+        Action_Text->setText(QString());
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 

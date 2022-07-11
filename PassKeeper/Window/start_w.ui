@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Start_W</class>
+ <widget class="QDialog" name="Start_W">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>294</width>
+    <height>228</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QPushButton" name="Open_button">
+   <property name="geometry">
+    <rect>
+     <x>8</x>
+     <y>14</y>
+     <width>131</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Open exist....</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Create_Button">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>148</x>
+     <y>14</y>
+     <width>131</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Create new DB </string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

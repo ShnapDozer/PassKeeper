@@ -20,6 +20,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListView>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -38,25 +39,28 @@ public:
     QLineEdit *NameColumn;
     QLabel *label_4;
     QComboBox *TypeColumn;
-    QLineEdit *TableName;
-    QLabel *label;
     QFrame *line;
     QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *CreateButton;
     QPushButton *DefaultButton;
+    QWidget *layoutWidget3;
+    QVBoxLayout *verticalLayout;
+    QLineEdit *BD_Name;
+    QLineEdit *BD_Pass;
+    QLineEdit *Tab_Name;
 
     void setupUi(QDialog *New_DB_W)
     {
         if (New_DB_W->objectName().isEmpty())
             New_DB_W->setObjectName(QString::fromUtf8("New_DB_W"));
-        New_DB_W->resize(482, 227);
+        New_DB_W->resize(482, 233);
         ColumnsNT = new QListView(New_DB_W);
         ColumnsNT->setObjectName(QString::fromUtf8("ColumnsNT"));
         ColumnsNT->setGeometry(QRect(270, 6, 201, 171));
         layoutWidget = new QWidget(New_DB_W);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(10, 160, 241, 33));
+        layoutWidget->setGeometry(QRect(10, 190, 241, 33));
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
@@ -72,7 +76,7 @@ public:
 
         layoutWidget1 = new QWidget(New_DB_W);
         layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(10, 80, 241, 71));
+        layoutWidget1->setGeometry(QRect(10, 110, 241, 71));
         formLayout = new QFormLayout(layoutWidget1);
         formLayout->setObjectName(QString::fromUtf8("formLayout"));
         formLayout->setContentsMargins(0, 0, 0, 0);
@@ -101,12 +105,6 @@ public:
 
         formLayout->setWidget(1, QFormLayout::FieldRole, TypeColumn);
 
-        TableName = new QLineEdit(New_DB_W);
-        TableName->setObjectName(QString::fromUtf8("TableName"));
-        TableName->setGeometry(QRect(10, 40, 241, 28));
-        label = new QLabel(New_DB_W);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(10, 10, 79, 28));
         line = new QFrame(New_DB_W);
         line->setObjectName(QString::fromUtf8("line"));
         line->setGeometry(QRect(250, 0, 20, 231));
@@ -128,6 +126,28 @@ public:
 
         horizontalLayout_2->addWidget(DefaultButton);
 
+        layoutWidget3 = new QWidget(New_DB_W);
+        layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(10, 10, 241, 101));
+        verticalLayout = new QVBoxLayout(layoutWidget3);
+        verticalLayout->setSpacing(0);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        BD_Name = new QLineEdit(layoutWidget3);
+        BD_Name->setObjectName(QString::fromUtf8("BD_Name"));
+
+        verticalLayout->addWidget(BD_Name);
+
+        BD_Pass = new QLineEdit(layoutWidget3);
+        BD_Pass->setObjectName(QString::fromUtf8("BD_Pass"));
+
+        verticalLayout->addWidget(BD_Pass);
+
+        Tab_Name = new QLineEdit(layoutWidget3);
+        Tab_Name->setObjectName(QString::fromUtf8("Tab_Name"));
+
+        verticalLayout->addWidget(Tab_Name);
+
 
         retranslateUi(New_DB_W);
 
@@ -147,7 +167,6 @@ public:
         TypeColumn->setItemText(3, QCoreApplication::translate("New_DB_W", "COUNT", nullptr));
         TypeColumn->setItemText(4, QCoreApplication::translate("New_DB_W", "IMAGE", nullptr));
 
-        label->setText(QCoreApplication::translate("New_DB_W", "Table name:", nullptr));
         CreateButton->setText(QCoreApplication::translate("New_DB_W", "Create", nullptr));
         DefaultButton->setText(QCoreApplication::translate("New_DB_W", "Default", nullptr));
     } // retranslateUi

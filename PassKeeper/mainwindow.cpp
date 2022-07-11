@@ -3,33 +3,15 @@
 
 #include <QString>
 
-MainWindow::MainWindow(int argc, char *argv[], QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+//"C:/Users/HellNout/Downloads/QtProjects/PassKeeper/build-Debug/Test.db", "132435wer"
+//qDebug() << QSqlDatabase::drivers();
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow),
+      WinClipBoard(QApplication::clipboard())
 {
     ui->setupUi(this);
-
-    qDebug() << QSqlDatabase::drivers();
-
-    newTable_W = new New_DB_W;
-    OpenExist_W = new Explorer_W;
-    EnterPass_W = new PassWrite_W;
-
-    start_W = new Start_W(newTable_W, EnterPass_W);
-
-    connect(newTable_W, &New_DB_W::signal_NewTable_Ok, this, &MainWindow::slot_NewTable_Ok);
-    connect(EnterPass_W, &PassWrite_W::signal_EnterPass_Ok, this, &MainWindow::slot_EnterPass_Ok);
-
-
-    if(argc > 1){ DB = std::make_shared<DataBase>(argv[1], ui); }
-    else
-    {
-        start_W->show();
-        start_W->exec();
-    }
-    //DB = std::make_shared<DataBase>("C:/Users/HellNout/Downloads/QtProjects/PassKeeper/build-Debug/TestPass.db", ui, "ewfwge");
-
-    //DB->UpdatePassword("wefwe");
+    ui->Seach_line->setPlaceholderText(QString("Search..."));
 }
 
 MainWindow::~MainWindow()
@@ -37,22 +19,82 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_MW_Seach_clicked()
+QAbstractItemModel* MainWindow::getModel()
 {
-
+    return ui->MainTable->model();
 }
 
-void MainWindow::slot_NewTable_Ok(QString NameDB, QString NameTab, QString TableQuery, QString PassDB)
+void MainWindow::updateTabBar(std::vector<QString> Names)
 {
-    newTable_W->close();
-    start_W->close();
-
-    DB = std::make_shared<DataBase>(NameDB, ui, NameTab, TableQuery, PassDB);
+    ui->TabBar->clear();
+    for(int i = 0; i < Names.size(); ++i)
+    {
+        ui->TabBar->addTab(new QWidget(), Names[i]);
+    }
 }
 
-void MainWindow::slot_EnterPass_Ok(QString NameDB, QString PassDB)
+int MainWindow::getID(QModelIndex index)
 {
-     DB = std::make_shared<DataBase>(NameDB, ui, PassDB);
+    auto model = getModel();
+    return model->data(model->index(index.row(), 0)).toInt();
 }
 
+void MainWindow::slot_BDisCreate(EditableSqlModel *Model)
+{
+    this->show();
+
+    ui->MainTable->setModel(Model);
+    ui->MainTable->setColumnHidden(0, true);
+    updateTabBar(Model->getTabNames());
+    ui->MainTable->show();
+
+    EditModel = Model;
+
+    emit signal_RunMain_W();
+}
+
+void MainWindow::slot_TabisCreate()
+{
+    updateTabBar(EditModel->getTabNames());
+}
+
+void MainWindow::on_AddPass_Button_clicked()
+{
+    getModel()->insertRow(0);
+}
+
+void MainWindow::on_AddTab_Button_clicked()
+{
+    emit signal_MW_CreateNewTab("Name", "sefgwfw");
+}
+
+
+void MainWindow::on_DelR_Button_clicked()
+{
+    if(PressIndex.isValid()){
+        qDebug()<< getModel()->removeRow(PressID);
+    }
+}
+
+
+void MainWindow::on_MainTable_pressed(const QModelIndex &index)
+{
+    PressIndex = index;
+    PressID = getID(index);
+    WinClipBoard->setText((getModel()->data(index)).toString(), QClipboard::Clipboard);
+}
+
+
+void MainWindow::on_Seach_line_textChanged(const QString &arg1)
+{
+    EditModel->Search(arg1, 1, true );
+}
+
+
+void MainWindow::on_TabBar_currentChanged(int index)
+{
+    qDebug()<<index;
+    if(index >= 0)
+        EditModel->SelectTable(index);
+}
 

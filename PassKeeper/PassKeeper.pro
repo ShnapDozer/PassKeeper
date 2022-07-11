@@ -9,30 +9,41 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    database.cpp \
-    explorer_w.cpp \
+    Support/DB_Manager.cpp \
+    Support/database.cpp \
+    Support/editablesqlmodel.cpp \
+    Support/typemodellist.cpp \
+    Support/windows_manager.cpp \
+    Window/EnterPassword_w.cpp \
+    Window/explorer_w.cpp \
+    Window/new_db_w.cpp \
+    Window/start_w.cpp \
     main.cpp \
-    mainwindow.cpp \
-    new_db_w.cpp \
-    passwrite_w.cpp \
-    start_w.cpp \
-    typemodellist.cpp
+    mainwindow.cpp
+
 
 HEADERS += \
-    database.h \
-    explorer_w.h \
-    mainwindow.h \
-    new_db_w.h \
-    passwrite_w.h \
-    start_w.h \
-    typemodellist.h
+    Support/DB_Manager.h \
+    Support/database.h \
+    Support/editablesqlmodel.h \
+    Support/typemodellist.h \
+    Support/windows_manager.h \
+    Window/EnterPassword_w.h \
+    Window/explorer_w.h \
+    Window/new_db_w.h \
+    Window/start_w.h \
+    mainwindow.h
 
 FORMS += \
-    explorer_w.ui \
-    mainwindow.ui \
-    new_db_w.ui \
-    passwrite_w.ui \
-    start_w.ui
+    Window/EnterPassword_w.ui \
+    Window/explorer_w.ui \
+    Window/new_db_w.ui \
+    Window/start_w.ui \
+    mainwindow.ui
+
+win32 {
+  LIBS += "C:\Program Files (x86)\Windows Kits\10\Lib\10.0.19041.0\um\x64\User32.Lib"
+}
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

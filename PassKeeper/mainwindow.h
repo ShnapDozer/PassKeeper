@@ -4,14 +4,14 @@
 #include <vector>
 #include <memory>
 
+#include <QApplication>
 #include <QMainWindow>
+#include <QClipboard>
+#include <QDebug>
 
-#include "database.h"
-
-#include "start_w.h"
-#include "new_db_w.h"
-#include "explorer_w.h"
-#include "passwrite_w.h"
+#include "Support/database.h"
+#include "Support/editablesqlmodel.h"
+#include "Support/DB_Manager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,25 +24,48 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(int argc, char *argv[], QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    void UI_Init();
+
+signals:
+    void signal_RunMain_W();
+    void signal_MW_CreateNewTab(QString NameDB, QString PassDB);
+
+public slots:
+    void slot_BDisCreate(EditableSqlModel *Model);
+    void slot_TabisCreate();
 
 private slots:
 
-    void on_MW_Seach_clicked();
+    void on_AddPass_Button_clicked();
 
-    //Window slots:
-    void slot_NewTable_Ok(QString NameDB, QString NameTab, QString TableQuery, QString PassDB);
-    void slot_EnterPass_Ok(QString NameDB, QString PassDB);
+    void on_AddTab_Button_clicked();
+
+    void on_DelR_Button_clicked();
+
+    void on_MainTable_pressed(const QModelIndex &index);
+
+    void on_Seach_line_textChanged(const QString &arg1);
+
+    void on_TabBar_currentChanged(int index);
+
+private:
+    QAbstractItemModel* getModel();
+    void updateTabBar(std::vector<QString> Names);
+
+    int getID(QModelIndex index);
 
 private:
     Ui::MainWindow *ui;
+    QClipboard *WinClipBoard;
 
-    Start_W *start_W;
-    New_DB_W *newTable_W;
-    Explorer_W *OpenExist_W;
-    PassWrite_W *EnterPass_W;
+    EditableSqlModel *EditModel;
 
-    std::shared_ptr <DataBase> DB;
+    int PressID;
+    QModelIndex PressIndex;
+
 };
+
 #endif // MAINWINDOW_H

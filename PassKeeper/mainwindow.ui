@@ -7,61 +7,110 @@
     <x>0</x>
     <y>0</y>
     <width>1081</width>
-    <height>600</height>
+    <height>606</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>PassKeeper</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTabWidget" name="Tables">
+   <widget class="QTabWidget" name="TabBar">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>20</y>
-      <width>731</width>
-      <height>531</height>
+      <width>741</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>-1</number>
     </property>
-    <widget class="QWidget" name="tab">
-     <attribute name="title">
-      <string>Tab 1</string>
-     </attribute>
-     <widget class="QTableView" name="MW_tableOne_View">
-      <property name="geometry">
-       <rect>
-        <x>-5</x>
-        <y>-9</y>
-        <width>741</width>
-        <height>511</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
    </widget>
-   <widget class="QPushButton" name="MW_Seach">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>990</x>
-      <y>50</y>
-      <width>83</width>
-      <height>29</height>
+      <x>768</x>
+      <y>54</y>
+      <width>311</width>
+      <height>111</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Поиск</string>
-    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLineEdit" name="Seach_line"/>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="AddPass_Button">
+         <property name="text">
+          <string>Add Pass</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="AddTab_Button">
+         <property name="text">
+          <string>Add Tab</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="DelR_Button">
+         <property name="text">
+          <string>Del Pass</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="DelT_Button">
+         <property name="text">
+          <string>Del Tab</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </widget>
-   <widget class="QLineEdit" name="MW_Seach_line">
+   <widget class="QLabel" name="Action_Text">
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>50</y>
-      <width>221</width>
-      <height>28</height>
+      <y>530</y>
+      <width>301</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>520</y>
+      <width>321</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QTableView" name="MainTable">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>43</y>
+      <width>741</width>
+      <height>420</height>
      </rect>
     </property>
    </widget>
